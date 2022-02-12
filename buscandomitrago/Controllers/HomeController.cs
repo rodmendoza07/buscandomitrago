@@ -26,8 +26,15 @@ namespace buscandomitrago.Controllers
             return View(lista);
         }
        
-        public async Task<PartialViewResult> SearchByName()
+        public async Task<PartialViewResult> SearchByName(string nombre)
         {
+            LBebida lista = await _bebidas.ObtenerBebidas(nombre);
+            return PartialView(lista);
+        }
+
+        public async Task<PartialViewResult> SearchByIngredient(string ingrediente)
+        {
+            LBebida lista = await _bebidas.ObetenerBebidasIngredientes(ingrediente);
             return PartialView();
         }
     }
