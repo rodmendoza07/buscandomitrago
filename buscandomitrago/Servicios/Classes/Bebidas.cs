@@ -37,11 +37,14 @@ namespace buscandomitrago.Servicios.Classes
                     Bebida b = new Bebida();
                     b.idDrink = i.idDrink;
                     b.strDrink = i.strDrink;
-                    b.strTags = i.strTags;
+                    b.strTags = i.strTags != null ? i.strTags : "Sin categoria";
                     b.strCategory = i.strCategory;
                     b.strIBA = i.strIBA;
                     b.strGlass = i.strGlass;
-                    b.strDrinkThumb = i.strDrinkThumb;
+                    b.strDrinkThumb = i.strDrinkThumb + "/preview";
+                    b.strIngredient1 = i.strIngredient1;
+                    b.strIngredient2 = i.strIngredient2;
+                    b.strIngredient3 = i.strIngredient3;
 
                     bebidas.Add(b);
                 }
