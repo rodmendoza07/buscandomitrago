@@ -1,3 +1,5 @@
+using buscandomitrago.Servicios.Classes;
+using buscandomitrago.Servicios.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +24,9 @@ namespace buscandomitrago
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ApiCocktail>(Configuration.GetSection(ApiCocktail.SectionName));
             services.AddControllersWithViews();
+            services.AddScoped<IBebidas, Bebidas>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

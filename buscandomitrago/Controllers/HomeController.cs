@@ -1,4 +1,5 @@
 ﻿using buscandomitrago.Models;
+using buscandomitrago.Servicios.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,26 +13,22 @@ namespace buscandomitrago.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IBebidas _bebidas;
+        public HomeController(ILogger<HomeController> logger, IBebidas bebida)
         {
             _logger = logger;
+            _bebidas = bebida;
         }
 
-        public IActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            LBebida lista = await _bebidas.ObtenerBebidas("margarita");
+            return View(lista);
         }
-
-        public IActionResult Privacy()
+       
+        public async Task<PartialViewResult> SearchByName()
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return PartialView();
         }
     }
 }
