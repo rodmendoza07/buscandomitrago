@@ -21,16 +21,20 @@ namespace buscandomitrago.Servicios.Classes
         }
         public override async Task<LBebida> ObtenerBebidas(string nombre)
         {
+            var listaBebidas = new LBebida();
             try
             {
                 string url = string.Empty;
-                List<Bebida> bebidas = new List<Bebida>();
-                var listaBebidas = new LBebida();
                 url = _apiCocktail.Value.BusquedaNombre + nombre;
                 var httpClient = new HttpClient();
                 var response = await httpClient.GetAsync(url);
-
+                List<Bebida> bebidas = new List<Bebida>();
                 dynamic Objlist = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+
+                if (Objlist.drinks == null)
+                {
+                    throw new Exception();
+                }
 
                 foreach (var i in Objlist.drinks)
                 {
@@ -55,22 +59,43 @@ namespace buscandomitrago.Servicios.Classes
             }
             catch (Exception ex)
             {
-
-                throw;
+                listaBebidas.bebida = null;
+                return listaBebidas;
             }
         }
 
         public async Task<LBebida> ObetenerBebidasIngredientes(string ingrediente)
         {
-            string url = string.Empty;
-            var lista = new LBebida();
-            url = _apiCocktail.Value.BusquedaIngrediente + ingrediente;
-            var httpClient = new HttpClient();
-            var response = await httpClient.GetStringAsync(url);
+            var listaBebidas = new LBebida();
+            try
+            {
+                string url = string.Empty;
+                List<Bebida> bebidas = new List<Bebida>();
+                url = _apiCocktail.Value.BusquedaIngrediente + ingrediente;
+                var httpClient = new HttpClient();
+                var response = await httpClient.GetAsync(url);
 
-            lista = JsonConvert.DeserializeObject<LBebida>(response);
+                dynamic Objlist = JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
 
-            return lista;
+                foreach (var i in Objlist.drinks)
+                {
+                    Bebida b = new Bebida();
+                    b.idDrink = i.idDrink;
+                    b.strDrink = i.strDrink;
+                    b.strDrinkThumb = i.strDrinkThumb + "/preview";
+                    
+                    bebidas.Add(b);
+                }
+
+                listaBebidas.bebida = bebidas;
+
+                return listaBebidas;
+            }
+            catch (Exception)
+            {
+                listaBebidas.bebida = null;
+                return listaBebidas;
+            }
         }
     }
 }

@@ -26,16 +26,17 @@ namespace buscandomitrago.Controllers
             return View(lista);
         }
        
-        public async Task<PartialViewResult> SearchByName(string nombre)
+        [HttpPost]
+        public async Task<PartialViewResult> SearchByName([FromBody] Bebida b)
         {
-            LBebida lista = await _bebidas.ObtenerBebidas(nombre);
+            LBebida lista = await _bebidas.ObtenerBebidas(b.strDrink);
             return PartialView(lista);
         }
 
-        public async Task<PartialViewResult> SearchByIngredient(string ingrediente)
+        public async Task<PartialViewResult> SearchByIngredient([FromBody] Bebida b)
         {
-            LBebida lista = await _bebidas.ObetenerBebidasIngredientes(ingrediente);
-            return PartialView();
+            LBebida lista = await _bebidas.ObetenerBebidasIngredientes(b.strIngredient1);
+            return PartialView(lista);
         }
     }
 }
