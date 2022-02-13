@@ -12,7 +12,7 @@
                     <img src="@i.strDrinkThumb" class="img-fluid">
                     <div class="hover">
                         <div class="button-group">
-                            <a href="#" class="favorite-feature"><i class="far fa-heart"></i></a>
+                            <a href="#" class="favorite-feature favoritos"><i class="far fa-heart fa-3x" data-dId="@i.idDrink" data-dName="@i.strDrink" data-thumbs="@i.strDrinkThumb"></i></a>
                         </div>
                     </div>
                 </div>
@@ -21,13 +21,15 @@
                     <p><i class="fas fa-cocktail primary-color"></i> Se sirve en: @i.strGlass</p>
                 </div>
                 <div class="content-middle">
-                    <p class="mb-0 d-inline-block"><i class="far fa-lemon pr-1"></i> 
+                    <p class="mb-0 d-inline-block">
+                        <i class="far fa-lemon pr-1"></i>
                         <strong>Ingredientes:</strong> @i.strIngredient1, @i.strIngredient2, @i.strIngredient3
                     </p>
                 </div>
                 <div class="footer-content">
                     <div class="author d-flex">
-                        <p class="mb-0 align-self-center"><i class="fas fa-tag primary-color"></i> Categoria: 
+                        <p class="mb-0 align-self-center">
+                            <i class="fas fa-tag primary-color"></i> Categoria:
                             @i.strTags
                         </p>
                     </div>
@@ -36,3 +38,13 @@
         </div>
     }
 </div>
+
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready(() => {
+        let ObjFav = new Favoritos;
+        ObjFav.AddFavoritos();
+        });
+</script>
+
+}

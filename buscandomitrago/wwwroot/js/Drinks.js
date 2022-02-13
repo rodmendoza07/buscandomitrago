@@ -1,15 +1,16 @@
 ﻿$(document).ready(() => {
 
-    console.log("que esta pasando");
     let ObjRequest = new RequestResponse();
 
     const BuscarPorNombre = async () => {
+
         let data = {
             "strDrink": $("#q").val()
         }
 
         let url = "/Home/SearchByName";
-        ObjRequest.Request(url, data);
+
+        ObjRequest.Request(url, data, 1);
     }
 
     const BuscarPorIngrediente = async () => {
@@ -18,26 +19,23 @@
         }
 
         let url = "/Home/SearchByIngredient";
-        ObjRequest.Request(url, data);
+        ObjRequest.Request(url, data, 2);
     }
+
+
 
     $("#formBuscar").submit((e) => {
         e.preventDefault();
         let tipoBusqueda = $("#search-option").val()
         switch (tipoBusqueda) {
             case "1":
-                console.log("buscar por nombre");
                 BuscarPorNombre();
                 break;
             case "2":
-                console.log("buscar por ingrediente");
                 BuscarPorIngrediente();
                 break;
             default:
-                console.log("no hace nada");
                 break;
         }
-       
     });
-
 });

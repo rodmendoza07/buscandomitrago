@@ -65,7 +65,7 @@
                     <div class="col-md-8 align-self-center">
                         <div class="bar-left">
                             <div class="dropdown pr-3 d-inline-block">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" >
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button">
                                     ¿Donde est&acute;a mi trago?
                                 </a>
                             </div>
@@ -79,6 +79,11 @@
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"> <a href="#" id="fav">Ver favoritos</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -155,8 +160,17 @@
     <script src="~/lib/slick/slick.min.js"></script>
     <script src="~/js/behome.js"></script>
     <script src="~/js/slider.js"></script>
+    <script src="~/js/Favoritos.js"></script>
     <script src="~/js/RequestResponse.js"></script>
     <script src="~/js/Drinks.js"></script>
+    <script type="text/javascript">
+        $(document).ready(() => {
+            let objFav = new Favoritos()
+            $("#fav").click(() => {
+                objFav.VerFavoritos();
+            })
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
